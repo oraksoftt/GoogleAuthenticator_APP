@@ -1,0 +1,58 @@
+﻿
+<style>
+    .custom-input {
+        width: 100%; /* Makes the input fill the width of its container */
+        font-size: 1.5rem; /* Larger font for better readability */
+        text-align: center; /* Aligns the digits to the center */
+        padding: 10px; /* Adds padding for better aesthetics */
+    }
+
+        /* Optional: Add more styling for the input field */
+        .custom-input:focus {
+            border-color: #28a745; /* Green border on focus */
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Subtle green glow */
+        }
+
+    /* Button Styling */
+    .btn-block {
+        width: 100%;  
+    }
+
+    /* Success or Error Alert Styling */
+    .alert-info {
+        margin-top: 20px;
+    }
+</style>
+
+<h2 class="text-center mb-4">Enter the 6-Digit Code</h2>
+
+@* @if (TempData["ValidationResult"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["ValidationResult"]
+    </div>
+} *@
+
+@if (TempData["ValidationResult"] != null && TempData["ValidationResult"] != "2FA validated successfully!")
+{
+    <div class="alert alert-danger mt-3">
+        <strong>Error:</strong> The code you entered is invalid. Please try again.
+    </div>
+}
+else
+{
+    <div class="alert alert-success mt-3">
+        <strong>Success:</strong> 2FA validated successfully.
+    </div>
+    
+}
+
+<!-- Form Section -->
+<form method="post" action="/TwoFactorAuth/Validate2FA" class="mx-auto" style="max-width: 400px;">
+    <div class="form-group">
+        <label for="code">Enter the 6-digit code from Google Authenticator:</label>
+        <input type="text" id="Code" name="Code" class="form-control custom-input" maxlength="6" required autocomplete="off" />
+    </div>
+
+    <button class="btn btn-lg btn-outline-success btn-block" type="submit">Validate</button>
+</form>
